@@ -46,12 +46,12 @@ def make_cloud_image(tags, file_name):
     fig.savefig("outputs/{0}.png".format(file_name))
 
 
-def process_from_text(text, maxCount, minLength, words, file_name):
-    tags = get_tags(text, maxCount, minLength)
+def process_from_text(text, max_count, min_length, words, file_name):
+    tags = get_tags(text, int(max_count), int(min_length))
 
     for n,c in words.items():
         if n in tags:
-            tags[n] = tags[n] * int(words[n])
+            tags[n] = tags[n] * float(words[n])
     make_cloud_image(tags, file_name)
 
 
