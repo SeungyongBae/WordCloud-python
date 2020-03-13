@@ -10,18 +10,19 @@ app = Flask(__name__, static_folder='outputs')
 CORS(app)
 font_path = 'NanumGothic.ttf'
 
-def get_tags(text, maxCount, minLength):
+def get_tags(text, max_count, min_length):
     t = Twitter()
-    if maxCount == None or minLength == None:
-        maxCount = 20
-        minLength = 2
+
+    if max_count == None or min_length == None:
+        max_count = 20
+        min_length = 1
         
     nouns = t.nouns(text)
-    processed = [noun for noun in nouns if len(noun) >= minLength]
-    count = Counter(nouns)
+    processed = [noun for noun in nouns if len(noun) >= min_length]
+    count = Counter(processed)
 
     result = {}
-    for n, c in count.most_common(maxCount):
+    for n, c in count.most_common(max_count):
         result[n] = c
 
     if len(result) == 0:
